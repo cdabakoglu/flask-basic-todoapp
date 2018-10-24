@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="https://bootswatch.com/4/darkly/bootstrap.min.css">
+    <link rel="stylesheet" href="/css/style.css">
+    <title>ToDo App</title>
+</head>
+<body>
+    <div style="margin-top:60px;" class="container">
+        <h3 style="text-align: center">To Do List</h3>
+        <hr style="color:bisque; background-color:bisque; border:none; height:1px;">
+        <form action="/add/" method="post">
+            <div class="form-group" style="left: 50%; margin-left: 30%;">
+                <label class="col-form-label col-form-label-lg" for="inputLarge">What will you do?</label>
+                <input class="form-control form-control-lg" name="title" type="text" placeholder="To do..." id="inputLarge" style="width: 60% !important;">
+                <button type="submit" class="btn btn-outline-success" style="margin-top: 10px;">Add</button>
+            </div>
+        </form>
+        <br><br>
+        {% if todos == [] %}
+            <div class="alert alert-dismissible alert-danger" style="opacity: 0.8;">
+                <strong>ToDo List is empty!</strong> Add something to list and try again.
+              </div>
+        {% else %}
+        <table class="table table-default">
+                <thead>
+                  <tr>
+                    <th scope="col" style="width: 60%">To Do</th>
+                    <th scope="col">Status</th>
+                    <th scope="col"></th>
+                    <th scope="col"></th>
+                  </tr>
+                </thead>
+                <tbody>
+                    {% for todo in todos %}
+                    {% if todo.complete == True %}
+                        <tr style="color:gray">
+                            <td style="padding-top: 20px; opacity: 0.4;">{{ todo.title }}</td>
+                            <td style="padding-top: 20px; opacity: 0.4;">Complete</td>
+                            <td><a href="/complete/{{ todo.id }}" class="btn btn-success" style="opacity: 0.4">Uncomplete</a></td>
+                            <td><a href="/delete/{{ todo.id }}" class="btn btn-danger" style="opacity: 0.7">Delete</a></td>
+                        </tr>
+                    {% else %}
+                        <tr>
+                            <td style="padding-top: 20px;">{{ todo.title }}</td>
+                            <td style="padding-top: 20px;">Uncomplete</td>
+                            <td><a href="/complete/{{ todo.id }}" class="btn btn-success">Complete</a></td>
+                            <td><a href="/delete/{{ todo.id }}" class="btn btn-danger">Delete</a></td>
+                        </tr>
+                    {% endif %}
+                        
+                    {% endfor %}
+                </tbody>
+              </table>
+        {% endif %}
+        
+    </div>
+
+
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
+</body>
+</html>
